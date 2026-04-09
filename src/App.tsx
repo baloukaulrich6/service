@@ -8,6 +8,8 @@ import Portfolio from './pages/Portfolio/index';
 import Analysis from './pages/Analysis/index';
 import Alerts from './pages/Alerts/index';
 import Profile from './pages/Profile/index';
+import Announcements from './pages/Announcements/index';
+import SGI from './pages/SGI/index';
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/announcements" element={<Announcements />} />
+          <Route path="/sgi" element={<SGI />} />
         </Routes>
       </AppShell>
       <Toaster

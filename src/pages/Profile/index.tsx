@@ -40,54 +40,54 @@ export default function Profile() {
   return (
     <div className="space-y-5 max-w-3xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-white">Profil</h1>
-        <p className="text-gray-400 text-sm mt-1">Gérez vos préférences d'investissement</p>
+        <h1 className="text-2xl font-bold text-primary">Profil</h1>
+        <p className="text-muted text-sm mt-1">Gérez vos préférences d'investissement</p>
       </div>
 
       {/* Personal Info */}
       <Card>
-        <h2 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-base font-semibold text-primary mb-4 flex items-center gap-2">
           <User size={16} className="text-emerald-500" /> Informations personnelles
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Nom</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Nom</label>
             <input
               value={profile.name}
               onChange={(e) => updateProfile({ name: e.target.value })}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500"
               placeholder="Votre nom"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Email</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Email</label>
             <input
               type="email"
               value={profile.email}
               onChange={(e) => updateProfile({ email: e.target.value })}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500"
               placeholder="email@exemple.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Pays</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Pays</label>
             <select
               value={profile.country}
               onChange={(e) => {
                 const country = e.target.value as Country;
                 updateProfile({ country, preferredMarket: country === 'Cameroun' || country === 'Gabon' ? 'BVMAC' : country === 'Other' ? 'BOTH' : 'BRVM' });
               }}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none"
             >
               {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Marché prioritaire</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Marché prioritaire</label>
             <select
               value={profile.preferredMarket}
               onChange={(e) => updateProfile({ preferredMarket: e.target.value as typeof profile.preferredMarket })}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none"
             >
               <option value="BVMAC">BVMAC (Afrique Centrale)</option>
               <option value="BRVM">BRVM (Afrique de l'Ouest)</option>
@@ -99,7 +99,7 @@ export default function Profile() {
 
       {/* Investment Preferences */}
       <Card>
-        <h2 className="text-base font-semibold text-white mb-4">Préférences d'investissement</h2>
+        <h2 className="text-base font-semibold text-primary mb-4">Préférences d'investissement</h2>
         {riskProfileScore !== null && (
           <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-sm text-emerald-400">
             Score de risque calculé : {riskProfileScore}/100
@@ -108,20 +108,20 @@ export default function Profile() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Tolérance au risque</label>
+              <label className="block text-sm font-medium text-secondary mb-1.5">Tolérance au risque</label>
               <div className="flex gap-2">
                 {([['conservative', 'Conservateur'], ['moderate', 'Modéré'], ['aggressive', 'Agressif']] as [RiskTolerance, string][]).map(([k, l]) => (
                   <button key={k} onClick={() => updatePreferences({ riskTolerance: k })}
-                    className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${preferences.riskTolerance === k ? 'bg-emerald-500 text-white' : 'bg-gray-700 text-gray-300'}`}>
+                    className={`flex-1 py-1.5 text-xs rounded-lg transition-colors ${preferences.riskTolerance === k ? 'bg-emerald-500 text-white' : 'bg-elevated text-secondary'}`}>
                     {l}
                   </button>
                 ))}
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Horizon</label>
+              <label className="block text-sm font-medium text-secondary mb-1.5">Horizon</label>
               <select value={preferences.investmentHorizon} onChange={(e) => updatePreferences({ investmentHorizon: e.target.value as InvestmentHorizon })}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
                 <option value="3months">3 mois</option>
                 <option value="1year">1 an</option>
                 <option value="3years">3 ans</option>
@@ -131,14 +131,14 @@ export default function Profile() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Budget mensuel (XAF)</label>
+              <label className="block text-sm font-medium text-secondary mb-1.5">Budget mensuel (XAF)</label>
               <input type="number" value={preferences.monthlyBudget} onChange={(e) => updatePreferences({ monthlyBudget: Number(e.target.value) })}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500" />
+                className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Objectif</label>
+              <label className="block text-sm font-medium text-secondary mb-1.5">Objectif</label>
               <select value={preferences.investmentGoal} onChange={(e) => updatePreferences({ investmentGoal: e.target.value as InvestmentGoal })}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
                 <option value="income">Revenus réguliers</option>
                 <option value="growth">Croissance du capital</option>
                 <option value="balanced">Équilibré</option>
@@ -147,11 +147,11 @@ export default function Profile() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Secteurs d'intérêt</label>
+            <label className="block text-sm font-medium text-secondary mb-2">Secteurs d'intérêt</label>
             <div className="flex flex-wrap gap-2">
               {SECTORS.map((sector) => (
                 <button key={sector} onClick={() => toggleSector(sector)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${(preferences.sectors as Sector[]).includes(sector) ? 'bg-emerald-500 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}>
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${(preferences.sectors as Sector[]).includes(sector) ? 'bg-emerald-500 text-white' : 'bg-elevated text-secondary hover:bg-elevated/80'}`}>
                   {sector}
                 </button>
               ))}
@@ -162,12 +162,12 @@ export default function Profile() {
 
       {/* Appearance */}
       <Card>
-        <h2 className="text-base font-semibold text-white mb-4">Apparence</h2>
+        <h2 className="text-base font-semibold text-primary mb-4">Apparence</h2>
         <div className="flex items-center gap-3">
-          <button onClick={() => setTheme('light')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${theme === 'light' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-gray-700 text-gray-300'}`}>
+          <button onClick={() => setTheme('light')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${theme === 'light' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-elevated text-secondary'}`}>
             <Sun size={16} /> Clair
           </button>
-          <button onClick={() => setTheme('dark')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-gray-600 text-white border border-gray-500' : 'bg-gray-700 text-gray-300'}`}>
+          <button onClick={() => setTheme('dark')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-elevated text-primary border border-border' : 'bg-elevated text-secondary'}`}>
             <Moon size={16} /> Sombre
           </button>
         </div>
@@ -175,7 +175,7 @@ export default function Profile() {
 
       {/* Data Management */}
       <Card>
-        <h2 className="text-base font-semibold text-white mb-4">Gestion des données</h2>
+        <h2 className="text-base font-semibold text-primary mb-4">Gestion des données</h2>
         <div className="flex flex-wrap gap-3">
           <Button variant="secondary" onClick={handleExport}>
             <Download size={16} /> Exporter le portefeuille (CSV)
@@ -184,7 +184,7 @@ export default function Profile() {
             <Trash2 size={16} /> Réinitialiser le portefeuille
           </Button>
         </div>
-        <p className="text-xs text-gray-500 mt-3">Les données sont stockées localement dans votre navigateur. Aucune donnée n'est envoyée à un serveur.</p>
+        <p className="text-xs text-muted mt-3">Les données sont stockées localement dans votre navigateur. Aucune donnée n'est envoyée à un serveur.</p>
       </Card>
     </div>
   );

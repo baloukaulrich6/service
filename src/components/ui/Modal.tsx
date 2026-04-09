@@ -17,10 +17,10 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className={`relative w-full ${widths[size]} bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl`}>
-        <div className="flex items-center justify-between p-5 border-b border-gray-700">
-          <h2 className="text-lg font-semibold text-white">{title}</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+      <div className={`relative w-full ${widths[size]} bg-surface border border-border rounded-2xl shadow-2xl`}>
+        <div className="flex items-center justify-between p-5 border-b border-border">
+          <h2 className="text-lg font-semibold text-primary">{title}</h2>
+          <button onClick={onClose} className="text-muted hover:text-primary transition-colors">
             <X size={20} />
           </button>
         </div>

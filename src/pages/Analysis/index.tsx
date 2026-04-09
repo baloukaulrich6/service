@@ -127,16 +127,16 @@ export default function Analysis() {
   return (
     <div className="space-y-5 max-w-6xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-white">Analyse</h1>
-        <p className="text-gray-400 text-sm mt-1">Outils d'aide à la décision d'investissement</p>
+        <h1 className="text-2xl font-bold text-primary">Analyse</h1>
+        <p className="text-muted text-sm mt-1">Outils d'aide à la décision d'investissement</p>
       </div>
 
-      <div className="flex gap-1 bg-gray-800 border border-gray-700 rounded-xl p-1 w-fit">
+      <div className="flex gap-1 bg-app-bg border border-border rounded-xl p-1 w-fit">
         {TABS.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setTab(key as Tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === key ? 'bg-emerald-500 text-white' : 'text-gray-400 hover:text-white'}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === key ? 'bg-emerald-500 text-white' : 'text-muted hover:text-primary'}`}
           >
             {label}
           </button>
@@ -147,20 +147,20 @@ export default function Analysis() {
       {tab === 'simulator' && (
         <div className="space-y-4">
           <Card>
-            <h2 className="text-base font-semibold text-white mb-4">Simulateur d'investissement</h2>
+            <h2 className="text-base font-semibold text-primary mb-4">Simulateur d'investissement</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Titre</label>
-                <select value={simSymbol} onChange={(e) => setSimSymbol(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                <label className="block text-sm text-muted mb-1.5">Titre</label>
+                <select value={simSymbol} onChange={(e) => setSimSymbol(e.target.value)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
                   {STOCKS_METADATA.map((s) => <option key={s.id} value={s.id}>{s.id} – {s.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Investissement mensuel (XAF)</label>
-                <input type="number" value={simMonthly} onChange={(e) => setSimMonthly(Number(e.target.value))} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none" />
+                <label className="block text-sm text-muted mb-1.5">Investissement mensuel (XAF)</label>
+                <input type="number" value={simMonthly} onChange={(e) => setSimMonthly(Number(e.target.value))} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none" />
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Horizon ({simYears} ans)</label>
+                <label className="block text-sm text-muted mb-1.5">Horizon ({simYears} ans)</label>
                 <input type="range" min="1" max="20" value={simYears} onChange={(e) => setSimYears(Number(e.target.value))} className="w-full mt-2" />
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function Analysis() {
                 { label: 'Scénario pessimiste', value: simData[simData.length - 1]?.pessimiste ?? 0, color: 'text-rose-400' },
               ].map(({ label, value, color }) => (
                 <div key={label} className="bg-gray-700/30 rounded-lg p-3">
-                  <div className="text-xs text-gray-400 mb-1">{label}</div>
+                  <div className="text-xs text-muted mb-1">{label}</div>
                   <div className={`text-lg font-bold ${color}`}>{formatCurrency(value)}</div>
                 </div>
               ))}
@@ -202,7 +202,7 @@ export default function Analysis() {
                 <Area type="monotone" dataKey="pessimiste" name="Pessimiste" stroke="#F43F5E" fill="url(#gPes)" strokeWidth={2} dot={false} />
               </AreaChart>
             </ResponsiveContainer>
-            <p className="text-xs text-gray-500 mt-2">Simulation basée sur la volatilité et la tendance historique de {simSymbol}. À titre éducatif uniquement.</p>
+            <p className="text-xs text-muted mt-2">Simulation basée sur la volatilité et la tendance historique de {simSymbol}. À titre éducatif uniquement.</p>
           </Card>
         </div>
       )}
@@ -211,17 +211,17 @@ export default function Analysis() {
       {tab === 'profiler' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <Card>
-            <h2 className="text-base font-semibold text-white mb-4">Questionnaire de profil investisseur</h2>
+            <h2 className="text-base font-semibold text-primary mb-4">Questionnaire de profil investisseur</h2>
             <div className="space-y-5">
               {QUIZ.map((q, qi) => (
                 <div key={qi}>
-                  <p className="text-sm font-medium text-gray-200 mb-2">{qi + 1}. {q.q}</p>
+                  <p className="text-sm font-medium text-secondary mb-2">{qi + 1}. {q.q}</p>
                   <div className="grid grid-cols-2 gap-2">
                     {q.opts.map((opt) => (
                       <button
                         key={opt.label}
                         onClick={() => handleQuiz(qi, opt.score)}
-                        className={`text-xs px-3 py-2 rounded-lg border text-left transition-colors ${answers[qi] === opt.score ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : 'border-gray-600 bg-gray-700/30 text-gray-300 hover:bg-gray-700'}`}
+                        className={`text-xs px-3 py-2 rounded-lg border text-left transition-colors ${answers[qi] === opt.score ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : 'border-border bg-gray-700/30 text-secondary hover:bg-elevated'}`}
                       >
                         {opt.label}
                       </button>
@@ -234,9 +234,9 @@ export default function Analysis() {
 
           {profileResult && (
             <Card>
-              <h2 className="text-base font-semibold text-white mb-4">Votre profil : <span className="text-emerald-400">{profileResult.label}</span></h2>
-              <div className="text-5xl font-bold text-white mb-1">{profileResult.score}<span className="text-2xl text-gray-500">/100</span></div>
-              <p className="text-gray-400 text-sm mb-6">Score de tolérance au risque</p>
+              <h2 className="text-base font-semibold text-primary mb-4">Votre profil : <span className="text-emerald-400">{profileResult.label}</span></h2>
+              <div className="text-5xl font-bold text-primary mb-1">{profileResult.score}<span className="text-2xl text-muted">/100</span></div>
+              <p className="text-muted text-sm mb-6">Score de tolérance au risque</p>
               <div className="space-y-3">
                 {[
                   { label: 'Actions', value: profileResult.stocks, color: 'bg-emerald-500' },
@@ -245,16 +245,16 @@ export default function Analysis() {
                   { label: "BRVM (Afrique de l'Ouest)", value: profileResult.brvm, color: 'bg-amber-500' },
                 ].map(({ label, value, color }) => (
                   <div key={label}>
-                    <div className="flex justify-between text-sm text-gray-300 mb-1">
-                      <span>{label}</span><span className="font-semibold text-white">{value}%</span>
+                    <div className="flex justify-between text-sm text-secondary mb-1">
+                      <span>{label}</span><span className="font-semibold text-primary">{value}%</span>
                     </div>
-                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div className="h-2 bg-elevated rounded-full overflow-hidden">
                       <div className={`h-full ${color} rounded-full transition-all`} style={{ width: `${value}%` }} />
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 p-3 bg-gray-700/30 rounded-lg text-xs text-gray-400">
+              <div className="mt-4 p-3 bg-gray-700/30 rounded-lg text-xs text-muted">
                 Profil sauvegardé dans vos préférences. Consultez la page Marchés pour voir les titres recommandés.
               </div>
             </Card>
@@ -265,22 +265,22 @@ export default function Analysis() {
       {/* Correlation Matrix */}
       {tab === 'correlation' && (
         <Card>
-          <h2 className="text-base font-semibold text-white mb-2">Matrice de corrélation</h2>
-          <p className="text-xs text-gray-400 mb-4">Corrélations des rendements journaliers sur 252 jours. Bleu = anticorrélé, Rouge = corrélé.</p>
+          <h2 className="text-base font-semibold text-primary mb-2">Matrice de corrélation</h2>
+          <p className="text-xs text-muted mb-4">Corrélations des rendements journaliers sur 252 jours. Bleu = anticorrélé, Rouge = corrélé.</p>
           <div className="overflow-x-auto">
             <table className="text-xs">
               <thead>
                 <tr>
                   <th className="w-20 pr-2" />
                   {STOCKS_METADATA.map((s) => (
-                    <th key={s.id} className="px-1 py-1 text-gray-400 font-medium w-12 text-center writing-vertical">{s.id}</th>
+                    <th key={s.id} className="px-1 py-1 text-muted font-medium w-12 text-center writing-vertical">{s.id}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {STOCKS_METADATA.map((sA) => (
                   <tr key={sA.id}>
-                    <td className="pr-2 text-gray-400 font-medium text-right py-1">{sA.id}</td>
+                    <td className="pr-2 text-muted font-medium text-right py-1">{sA.id}</td>
                     {STOCKS_METADATA.map((sB) => {
                       const corr = computeCorrelation(corrData[sA.id] ?? [], corrData[sB.id] ?? []);
                       return (
@@ -301,32 +301,32 @@ export default function Analysis() {
       {tab === 'scanner' && (
         <div className="space-y-4">
           <Card>
-            <h2 className="text-base font-semibold text-white mb-1">Scanner d'opportunités</h2>
-            <p className="text-xs text-gray-400 mb-4">Titres qui répondent à au moins un critère technique ou fondamental favorable.</p>
+            <h2 className="text-base font-semibold text-primary mb-1">Scanner d'opportunités</h2>
+            <p className="text-xs text-muted mb-4">Titres qui répondent à au moins un critère technique ou fondamental favorable.</p>
           </Card>
           {opportunities.length === 0 ? (
-            <Card className="text-center py-12 text-gray-500">Aucune opportunité détectée actuellement.</Card>
+            <Card className="text-center py-12 text-muted">Aucune opportunité détectée actuellement.</Card>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {opportunities.map((s) => (
                 <Card key={s.id}>
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <div className="font-bold text-white">{s.id}</div>
-                      <div className="text-xs text-gray-400">{s.name}</div>
+                      <div className="font-bold text-primary">{s.id}</div>
+                      <div className="text-xs text-muted">{s.name}</div>
                     </div>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded border ${getSignalBg(s.rec.signal)}`}>{s.rec.signal}</span>
                   </div>
                   <div className="space-y-1">
                     {s.reasons.map((r) => (
-                      <div key={r} className="flex items-center gap-2 text-xs text-gray-300">
+                      <div key={r} className="flex items-center gap-2 text-xs text-secondary">
                         <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full shrink-0" />
                         {r}
                       </div>
                     ))}
                   </div>
                   {s.latest?.rsi !== null && s.latest?.rsi !== undefined && (
-                    <div className="mt-2 text-xs text-gray-500">RSI: {s.latest.rsi.toFixed(1)} · Div: {s.dividendYield.toFixed(1)}%</div>
+                    <div className="mt-2 text-xs text-muted">RSI: {s.latest.rsi.toFixed(1)} · Div: {s.dividendYield.toFixed(1)}%</div>
                   )}
                 </Card>
               ))}

@@ -108,16 +108,16 @@ export default function Alerts() {
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Alertes</h1>
-          <p className="text-gray-400 text-sm mt-1">{rules.length} règle{rules.length !== 1 ? 's' : ''} · {unread} non lue{unread !== 1 ? 's' : ''}</p>
+          <h1 className="text-2xl font-bold text-primary">Alertes</h1>
+          <p className="text-muted text-sm mt-1">{rules.length} règle{rules.length !== 1 ? 's' : ''} · {unread} non lue{unread !== 1 ? 's' : ''}</p>
         </div>
         <Button size="sm" onClick={() => setAddOpen(true)}><Plus size={14} />Créer une alerte</Button>
       </div>
 
-      <div className="flex gap-1 bg-gray-800 border border-gray-700 rounded-xl p-1 w-fit">
+      <div className="flex gap-1 bg-app-bg border border-border rounded-xl p-1 w-fit">
         {[{ key: 'rules', label: 'Règles actives' }, { key: 'history', label: `Historique${unread > 0 ? ` (${unread})` : ''}` }].map(({ key, label }) => (
           <button key={key} onClick={() => setTab(key as 'rules' | 'history')}
-            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${tab === key ? 'bg-emerald-500 text-white' : 'text-gray-400 hover:text-white'}`}>
+            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${tab === key ? 'bg-emerald-500 text-white' : 'text-muted hover:text-primary'}`}>
             {label}
           </button>
         ))}
@@ -127,8 +127,8 @@ export default function Alerts() {
         <div className="space-y-3">
           {rules.length === 0 && (
             <Card className="text-center py-12">
-              <Bell size={32} className="mx-auto mb-3 text-gray-600" />
-              <p className="text-gray-500">Aucune règle d'alerte. Créez votre première alerte.</p>
+              <Bell size={32} className="mx-auto mb-3 text-muted" />
+              <p className="text-muted">Aucune règle d'alerte. Créez votre première alerte.</p>
             </Card>
           )}
           {rules.map((rule) => (
@@ -136,12 +136,12 @@ export default function Alerts() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20">{rule.symbol}</Badge>
-                  <span className="text-sm text-gray-200 font-medium">{ALERT_TYPE_LABELS[rule.type]}</span>
+                  <span className="text-sm text-secondary font-medium">{ALERT_TYPE_LABELS[rule.type]}</span>
                   {['price_above', 'price_below', 'change_percent'].includes(rule.type) && (
-                    <span className="text-sm text-white font-semibold">{rule.threshold.toLocaleString()}</span>
+                    <span className="text-sm text-primary font-semibold">{rule.threshold.toLocaleString()}</span>
                   )}
                 </div>
-                <div className="text-xs text-gray-500">Créée le {formatDate(rule.createdAt)}</div>
+                <div className="text-xs text-muted">Créée le {formatDate(rule.createdAt)}</div>
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -150,7 +150,7 @@ export default function Alerts() {
                 >
                   <span className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform ring-0 transition-transform ${rule.isActive ? 'translate-x-4' : 'translate-x-0'}`} />
                 </button>
-                <button onClick={() => deleteRule(rule.id)} className="text-gray-500 hover:text-rose-400 transition-colors">
+                <button onClick={() => deleteRule(rule.id)} className="text-muted hover:text-rose-400 transition-colors">
                   <Trash2 size={16} />
                 </button>
               </div>
@@ -169,8 +169,8 @@ export default function Alerts() {
           )}
           {history.length === 0 && (
             <Card className="text-center py-12">
-              <Bell size={32} className="mx-auto mb-3 text-gray-600" />
-              <p className="text-gray-500">Aucune alerte déclenchée.</p>
+              <Bell size={32} className="mx-auto mb-3 text-muted" />
+              <p className="text-muted">Aucune alerte déclenchée.</p>
             </Card>
           )}
           {history.map((alert) => (
@@ -179,12 +179,12 @@ export default function Alerts() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
                   <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">{alert.symbol}</Badge>
-                  <span className="text-xs text-gray-500">{formatDate(alert.triggeredAt)}</span>
+                  <span className="text-xs text-muted">{formatDate(alert.triggeredAt)}</span>
                 </div>
-                <p className="text-sm text-gray-200">{alert.message}</p>
+                <p className="text-sm text-secondary">{alert.message}</p>
               </div>
               {!alert.isRead && (
-                <button onClick={() => markRead(alert.id)} className="text-gray-500 hover:text-emerald-400 shrink-0">
+                <button onClick={() => markRead(alert.id)} className="text-muted hover:text-emerald-400 shrink-0">
                   <Check size={14} />
                 </button>
               )}
@@ -197,14 +197,14 @@ export default function Alerts() {
       <Modal isOpen={addOpen} onClose={() => setAddOpen(false)} title="Créer une alerte">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Titre</label>
-            <select value={newSymbol} onChange={(e) => setNewSymbol(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+            <label className="block text-sm font-medium text-secondary mb-1.5">Titre</label>
+            <select value={newSymbol} onChange={(e) => setNewSymbol(e.target.value)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
               {STOCKS_METADATA.map((s) => <option key={s.id} value={s.id}>{s.id} – {s.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Condition</label>
-            <select value={newType} onChange={(e) => setNewType(e.target.value as AlertType)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+            <label className="block text-sm font-medium text-secondary mb-1.5">Condition</label>
+            <select value={newType} onChange={(e) => setNewType(e.target.value as AlertType)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
               {(Object.entries(ALERT_TYPE_LABELS) as [AlertType, string][]).map(([k, v]) => (
                 <option key={k} value={k}>{v}</option>
               ))}
@@ -212,14 +212,14 @@ export default function Alerts() {
           </div>
           {['price_above', 'price_below', 'change_percent'].includes(newType) && (
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label className="block text-sm font-medium text-secondary mb-1.5">
                 Seuil {newType === 'change_percent' ? '(%)' : '(prix)'}
               </label>
               <input
                 type="number"
                 value={newThreshold}
                 onChange={(e) => setNewThreshold(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500"
+                className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500"
                 placeholder={newType === 'change_percent' ? 'ex: 5' : 'ex: 16000'}
               />
             </div>

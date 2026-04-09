@@ -72,7 +72,7 @@ export default function StockDetail() {
 
   return (
     <div className="space-y-5 max-w-5xl mx-auto">
-      <button onClick={() => navigate('/markets')} className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors">
+      <button onClick={() => navigate('/markets')} className="flex items-center gap-2 text-muted hover:text-primary text-sm transition-colors">
         <ArrowLeft size={16} /> Marchés
       </button>
 
@@ -81,11 +81,11 @@ export default function StockDetail() {
         <div className="flex flex-wrap items-start gap-4 justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-2xl font-bold text-white">{symbol}</h1>
+              <h1 className="text-2xl font-bold text-primary">{symbol}</h1>
               <Badge className={getExchangeBg(meta.exchange)}>{meta.exchange}</Badge>
-              <Badge className="bg-gray-700 text-gray-300 border-gray-600">{meta.sector}</Badge>
+              <Badge className="bg-elevated text-secondary border-border">{meta.sector}</Badge>
             </div>
-            <p className="text-gray-400 text-sm">{meta.name} · {meta.country}</p>
+            <p className="text-muted text-sm">{meta.name} · {meta.country}</p>
           </div>
           <Button onClick={() => setTradeOpen(true)} className="shrink-0">
             <Plus size={16} /> Ajouter au portefeuille
@@ -94,7 +94,7 @@ export default function StockDetail() {
 
         {quote && (
           <div className="mt-4 flex flex-wrap items-baseline gap-4">
-            <span className="text-4xl font-bold text-white">{formatPrice(quote.price, meta.currency)}</span>
+            <span className="text-4xl font-bold text-primary">{formatPrice(quote.price, meta.currency)}</span>
             <PriceChange change={quote.change} changePercent={quote.changePercent} currency={meta.currency} />
           </div>
         )}
@@ -108,7 +108,7 @@ export default function StockDetail() {
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
-                className={`px-2.5 py-1 text-xs rounded-md font-medium transition-colors ${period === p ? 'bg-emerald-500 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                className={`px-2.5 py-1 text-xs rounded-md font-medium transition-colors ${period === p ? 'bg-emerald-500 text-white' : 'text-muted hover:text-primary hover:bg-elevated'}`}
               >
                 {p}
               </button>
@@ -116,7 +116,7 @@ export default function StockDetail() {
           </div>
           <button
             onClick={() => setShowTechnicals(!showTechnicals)}
-            className={`text-xs px-3 py-1 rounded-md transition-colors ${showTechnicals ? 'bg-purple-500/20 text-purple-400' : 'bg-gray-700 text-gray-400 hover:text-white'}`}
+            className={`text-xs px-3 py-1 rounded-md transition-colors ${showTechnicals ? 'bg-purple-500/20 text-purple-400' : 'bg-elevated text-muted hover:text-primary'}`}
           >
             Indicateurs techniques
           </button>
@@ -124,7 +124,7 @@ export default function StockDetail() {
         <AreaPriceChart data={history} currency={meta.currency} />
 
         {showTechnicals && indicators.length > 0 && (
-          <div className="mt-6 space-y-4 border-t border-gray-700 pt-4">
+          <div className="mt-6 space-y-4 border-t border-border pt-4">
             <RSIChart data={indicators} />
             <MACDChart data={indicators} />
             <BollingerChart data={indicators} currency={meta.currency} />
@@ -135,7 +135,7 @@ export default function StockDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Fundamentals */}
         <Card>
-          <h2 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-primary mb-4 flex items-center gap-2">
             <Info size={16} className="text-blue-400" /> Données fondamentales
           </h2>
           <div className="grid grid-cols-2 gap-3">
@@ -148,21 +148,21 @@ export default function StockDetail() {
               { label: 'Plus bas 52s', value: formatPrice(low52, meta.currency) },
             ].map(({ label, value }) => (
               <div key={label} className="bg-gray-700/30 rounded-lg p-3">
-                <div className="text-xs text-gray-400 mb-1">{label}</div>
-                <div className="text-sm font-semibold text-white">{value}</div>
+                <div className="text-xs text-muted mb-1">{label}</div>
+                <div className="text-sm font-semibold text-primary">{value}</div>
               </div>
             ))}
           </div>
           <div className="mt-4 p-3 bg-gray-700/30 rounded-lg">
-            <div className="text-xs text-gray-400 mb-1">À propos</div>
-            <p className="text-sm text-gray-300 leading-relaxed">{meta.description}</p>
+            <div className="text-xs text-muted mb-1">À propos</div>
+            <p className="text-sm text-secondary leading-relaxed">{meta.description}</p>
           </div>
         </Card>
 
         {/* Recommendation */}
         {rec && (
           <Card>
-            <h2 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-primary mb-4 flex items-center gap-2">
               {rec.signal === 'BUY' ? <TrendingUp size={16} className="text-emerald-500" /> : rec.signal === 'SELL' ? <TrendingDown size={16} className="text-rose-500" /> : <Info size={16} className="text-yellow-500" />}
               Recommandation
             </h2>
@@ -179,14 +179,14 @@ export default function StockDetail() {
             </div>
 
             <div className="mb-4">
-              <div className="text-sm font-medium text-gray-300 mb-2">Score de risque</div>
+              <div className="text-sm font-medium text-secondary mb-2">Score de risque</div>
               <RiskScoreMeter score={rec.riskScore} label={rec.riskLabel} />
             </div>
 
             <div>
               <button
                 onClick={() => setExpandSignals(!expandSignals)}
-                className="text-sm text-gray-400 hover:text-white flex items-center gap-1 mb-2 transition-colors"
+                className="text-sm text-muted hover:text-primary flex items-center gap-1 mb-2 transition-colors"
               >
                 {expandSignals ? '▾' : '▸'} Détail des signaux ({rec.signals.length})
               </button>
@@ -196,8 +196,8 @@ export default function StockDetail() {
                     <div key={sig.name} className="flex items-start gap-2 text-xs">
                       <span className={`shrink-0 w-2 h-2 rounded-full mt-1 ${sig.signal === 'bullish' ? 'bg-emerald-500' : sig.signal === 'bearish' ? 'bg-rose-500' : 'bg-gray-500'}`} />
                       <div>
-                        <div className="font-medium text-gray-200">{sig.name} <span className="text-gray-500">({sig.weight}%)</span></div>
-                        <div className="text-gray-400">{sig.description}</div>
+                        <div className="font-medium text-secondary">{sig.name} <span className="text-muted">({sig.weight}%)</span></div>
+                        <div className="text-muted">{sig.description}</div>
                       </div>
                     </div>
                   ))}
@@ -205,7 +205,7 @@ export default function StockDetail() {
               )}
             </div>
 
-            <div className="mt-3 text-xs text-gray-600">
+            <div className="mt-3 text-xs text-muted">
               Mis à jour le {formatDate(rec.updatedAt)}. Données simulées à titre éducatif uniquement.
             </div>
           </Card>
@@ -217,35 +217,35 @@ export default function StockDetail() {
         <div className="space-y-4">
           {quote && (
             <div className="bg-gray-700/50 rounded-lg p-3 text-sm">
-              <span className="text-gray-400">Cours actuel : </span>
-              <span className="text-white font-semibold">{formatPrice(quote.price, meta.currency)}</span>
+              <span className="text-muted">Cours actuel : </span>
+              <span className="text-primary font-semibold">{formatPrice(quote.price, meta.currency)}</span>
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Nombre d'actions</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Nombre d'actions</label>
             <input
               type="number"
               min="1"
               value={tradeShares}
               onChange={(e) => setTradeShares(e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500"
               placeholder="ex: 10"
             />
           </div>
           {quote && tradeShares && parseInt(tradeShares) > 0 && (
             <div className="bg-gray-700/30 rounded-lg p-3 text-sm">
-              <div className="flex justify-between text-gray-400">
+              <div className="flex justify-between text-muted">
                 <span>Total estimé</span>
-                <span className="text-white font-semibold">{formatPrice(parseInt(tradeShares) * quote.price, meta.currency)}</span>
+                <span className="text-primary font-semibold">{formatPrice(parseInt(tradeShares) * quote.price, meta.currency)}</span>
               </div>
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Note (optionnel)</label>
+            <label className="block text-sm font-medium text-secondary mb-1.5">Note (optionnel)</label>
             <input
               value={tradeNote}
               onChange={(e) => setTradeNote(e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500"
+              className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500"
               placeholder="Raison de l'achat..."
             />
           </div>
