@@ -1,10 +1,11 @@
 import { Sun, Moon } from 'lucide-react';
 import { StockSearch } from '../shared/StockSearch';
 import { useUserStore } from '../../store/useUserStore';
-import { isSupabaseEnabled } from '../../services/supabaseClient';
+import { useMarketStore } from '../../store/useMarketStore';
 
 export function Topbar() {
   const { theme, setTheme } = useUserStore();
+  const dataSource = useMarketStore((s) => s.dataSource);
 
   return (
     <header className="h-14 bg-surface border-b border-border flex items-center justify-between px-4 lg:px-6 shrink-0">
@@ -20,10 +21,16 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2 ml-auto">
-        {isSupabaseEnabled && (
+        {dataSource === 'real' && (
           <span className="hidden sm:inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Données réelles
+          </span>
+        )}
+        {dataSource === 'mixed' && (
+          <span className="hidden sm:inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            Données partielles
           </span>
         )}
         <div className="lg:hidden">
