@@ -81,3 +81,29 @@ export interface Recommendation {
   summary: string;
   updatedAt: string;
 }
+
+export interface Announcement {
+  id: string;
+  type: 'ipo' | 'news' | 'dividend' | 'delisting';
+  title: string;
+  body: string;
+  exchange: Exchange | null;
+  symbol: string | null;
+  expectedDate: string | null;
+  publishedAt: string;
+}
+
+export interface SGIFund {
+  id: string;
+  sgiName: string;
+  fundName: string;
+  fundType: 'FCP' | 'SICAV';
+  exchange: Exchange;
+  nav: number;
+  navDate: string;
+  ytdReturn: number;
+  oneYearReturn: number;
+  managementFee: number;
+  minInvestment: number;
+  currency: 'XAF' | 'XOF';
+}

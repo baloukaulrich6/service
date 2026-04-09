@@ -5,7 +5,7 @@ import { MobileNav } from './MobileNav';
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-gray-950 text-white">
+    <div className="flex min-h-screen bg-app-bg text-primary">
       <Sidebar />
       <div className="flex flex-col flex-1 min-w-0">
         <Topbar />

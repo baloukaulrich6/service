@@ -69,8 +69,8 @@ export default function Portfolio() {
     <div className="space-y-5 max-w-6xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Portefeuille</h1>
-          <p className="text-gray-400 text-sm mt-1">{positions.length} position{positions.length !== 1 ? 's' : ''}</p>
+          <h1 className="text-2xl font-bold text-primary">Portefeuille</h1>
+          <p className="text-muted text-sm mt-1">{positions.length} position{positions.length !== 1 ? 's' : ''}</p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" size="sm" onClick={handleExport}>Exporter CSV</Button>
@@ -90,11 +90,11 @@ export default function Portfolio() {
         {/* Allocation Donut */}
         <Card className="lg:col-span-2">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-white">Allocation</h2>
+            <h2 className="text-base font-semibold text-primary">Allocation</h2>
             <select
               value={allocView}
               onChange={(e) => setAllocView(e.target.value as AllocView)}
-              className="text-xs bg-gray-700 border border-gray-600 rounded px-2 py-1 text-gray-300 outline-none"
+              className="text-xs bg-input border border-border rounded px-2 py-1 text-secondary outline-none"
             >
               {(Object.keys(allocLabels) as AllocView[]).map((k) => (
                 <option key={k} value={k}>{allocLabels[k]}</option>
@@ -106,20 +106,20 @@ export default function Portfolio() {
 
         {/* Positions Table */}
         <Card padding={false} className="lg:col-span-3">
-          <div className="p-4 border-b border-gray-700">
-            <h2 className="text-base font-semibold text-white">Positions</h2>
+          <div className="p-4 border-b border-border">
+            <h2 className="text-base font-semibold text-primary">Positions</h2>
           </div>
           {positions.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-muted">
               <p>Aucune position. Ajoutez votre première transaction.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-700">
+                  <tr className="border-b border-border">
                     {['Titre', 'Qté', 'Prix moy.', 'Cours', 'Valeur', 'P&L', ''].map((h) => (
-                      <th key={h} className="px-4 py-2.5 text-left text-xs text-gray-400 uppercase font-medium">{h}</th>
+                      <th key={h} className="px-4 py-2.5 text-left text-xs text-muted uppercase font-medium">{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -133,13 +133,13 @@ export default function Portfolio() {
                     return (
                       <tr key={pos.symbol} className="border-b border-gray-800 hover:bg-gray-700/20">
                         <td className="px-4 py-3">
-                          <div className="text-sm font-semibold text-white">{pos.symbol}</div>
-                          <div className="text-xs text-gray-500">{pos.exchange}</div>
+                          <div className="text-sm font-semibold text-primary">{pos.symbol}</div>
+                          <div className="text-xs text-muted">{pos.exchange}</div>
                         </td>
-                        <td className="px-4 py-3 text-sm text-gray-300">{pos.shares.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-sm text-gray-300">{formatPrice(pos.avgCostBasis, pos.currency)}</td>
-                        <td className="px-4 py-3 text-sm text-white">{quote ? formatPrice(quote.price, pos.currency) : '–'}</td>
-                        <td className="px-4 py-3 text-sm text-white font-medium">{formatCurrency(currentValue, pos.currency)}</td>
+                        <td className="px-4 py-3 text-sm text-secondary">{pos.shares.toLocaleString()}</td>
+                        <td className="px-4 py-3 text-sm text-secondary">{formatPrice(pos.avgCostBasis, pos.currency)}</td>
+                        <td className="px-4 py-3 text-sm text-primary">{quote ? formatPrice(quote.price, pos.currency) : '–'}</td>
+                        <td className="px-4 py-3 text-sm text-primary font-medium">{formatCurrency(currentValue, pos.currency)}</td>
                         <td className="px-4 py-3">
                           <div className={`text-sm font-medium ${pnl >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                             {pnl >= 0 ? '+' : ''}{formatCurrency(pnl, pos.currency)}
@@ -149,7 +149,7 @@ export default function Portfolio() {
                           </div>
                         </td>
                         <td className="px-4 py-3">
-                          <button onClick={() => navigate(`/markets/${pos.symbol}`)} className="text-gray-500 hover:text-white">
+                          <button onClick={() => navigate(`/markets/${pos.symbol}`)} className="text-muted hover:text-primary">
                             <ExternalLink size={14} />
                           </button>
                         </td>
@@ -166,13 +166,13 @@ export default function Portfolio() {
       {/* Transaction History */}
       {transactions.length > 0 && (
         <Card>
-          <h2 className="text-base font-semibold text-white mb-4">Historique des transactions</h2>
+          <h2 className="text-base font-semibold text-primary mb-4">Historique des transactions</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-700">
+                <tr className="border-b border-border">
                   {['Date', 'Titre', 'Type', 'Quantité', 'Prix', 'Total', 'Note'].map((h) => (
-                    <th key={h} className="pb-2 text-left text-xs text-gray-400 uppercase font-medium pr-4">{h}</th>
+                    <th key={h} className="pb-2 text-left text-xs text-muted uppercase font-medium pr-4">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -181,17 +181,17 @@ export default function Portfolio() {
                   const meta = STOCKS_BY_ID[tx.symbol];
                   return (
                     <tr key={tx.id} className="border-b border-gray-800">
-                      <td className="py-2.5 pr-4 text-gray-400">{formatDate(tx.date)}</td>
-                      <td className="py-2.5 pr-4 font-medium text-white">{tx.symbol}</td>
+                      <td className="py-2.5 pr-4 text-muted">{formatDate(tx.date)}</td>
+                      <td className="py-2.5 pr-4 font-medium text-primary">{tx.symbol}</td>
                       <td className="py-2.5 pr-4">
                         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${tx.type === 'BUY' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                           {tx.type === 'BUY' ? 'Achat' : 'Vente'}
                         </span>
                       </td>
-                      <td className="py-2.5 pr-4 text-gray-300">{tx.shares.toLocaleString()}</td>
-                      <td className="py-2.5 pr-4 text-gray-300">{formatPrice(tx.price, meta?.currency ?? 'XAF')}</td>
-                      <td className="py-2.5 pr-4 text-white font-medium">{formatCurrency(tx.total, meta?.currency ?? 'XAF')}</td>
-                      <td className="py-2.5 text-gray-500 text-xs">{tx.note ?? '–'}</td>
+                      <td className="py-2.5 pr-4 text-secondary">{tx.shares.toLocaleString()}</td>
+                      <td className="py-2.5 pr-4 text-secondary">{formatPrice(tx.price, meta?.currency ?? 'XAF')}</td>
+                      <td className="py-2.5 pr-4 text-primary font-medium">{formatCurrency(tx.total, meta?.currency ?? 'XAF')}</td>
+                      <td className="py-2.5 text-muted text-xs">{tx.note ?? '–'}</td>
                     </tr>
                   );
                 })}
@@ -209,31 +209,31 @@ export default function Portfolio() {
               <button
                 key={t}
                 onClick={() => setType(t)}
-                className={`py-2 rounded-lg text-sm font-medium transition-colors ${type === t ? (t === 'BUY' ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white') : 'bg-gray-700 text-gray-300'}`}
+                className={`py-2 rounded-lg text-sm font-medium transition-colors ${type === t ? (t === 'BUY' ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white') : 'bg-elevated text-secondary'}`}
               >
                 {t === 'BUY' ? 'Achat' : 'Vente'}
               </button>
             ))}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Titre</label>
-            <select value={symbol} onChange={(e) => { setSymbol(e.target.value); const m = STOCKS_BY_ID[e.target.value]; if (m && quotes[e.target.value]) setPrice(quotes[e.target.value].price.toString()); }} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+            <label className="block text-sm font-medium text-secondary mb-1.5">Titre</label>
+            <select value={symbol} onChange={(e) => { setSymbol(e.target.value); const m = STOCKS_BY_ID[e.target.value]; if (m && quotes[e.target.value]) setPrice(quotes[e.target.value].price.toString()); }} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none">
               {STOCKS_METADATA.map((s) => <option key={s.id} value={s.id}>{s.id} – {s.name}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Nombre d'actions</label>
-              <input type="number" min="1" value={shares} onChange={(e) => setShares(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500" placeholder="10" />
+              <label className="block text-sm font-medium text-secondary mb-1.5">Nombre d'actions</label>
+              <input type="number" min="1" value={shares} onChange={(e) => setShares(e.target.value)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500" placeholder="10" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Prix unitaire</label>
-              <input type="number" min="1" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500" placeholder="Prix" />
+              <label className="block text-sm font-medium text-secondary mb-1.5">Prix unitaire</label>
+              <input type="number" min="1" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500" placeholder="Prix" />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1.5">Note</label>
-            <input value={note} onChange={(e) => setNote(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-emerald-500" placeholder="Optionnel..." />
+            <label className="block text-sm font-medium text-secondary mb-1.5">Note</label>
+            <input value={note} onChange={(e) => setNote(e.target.value)} className="w-full bg-input border border-border rounded-lg px-3 py-2 text-primary text-sm outline-none focus:border-emerald-500" placeholder="Optionnel..." />
           </div>
           <Button onClick={handleAdd} className="w-full justify-center">Confirmer</Button>
         </div>

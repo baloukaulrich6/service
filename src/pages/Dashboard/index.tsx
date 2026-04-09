@@ -58,8 +58,8 @@ export default function Dashboard() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
-        <p className="text-gray-400 text-sm mt-1">Bienvenue, {profile.name || 'Investisseur'} · Marchés africains en temps réel</p>
+        <h1 className="text-2xl font-bold text-primary">Tableau de bord</h1>
+        <p className="text-muted text-sm mt-1">Bienvenue, {profile.name || 'Investisseur'} · Marchés africains en temps réel</p>
       </div>
 
       {/* Market Index Tiles */}
@@ -95,7 +95,7 @@ export default function Dashboard() {
         {/* Top Movers */}
         <div className="lg:col-span-2 space-y-4">
           <Card>
-            <h2 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-primary mb-4 flex items-center gap-2">
               <TrendingUp size={16} className="text-emerald-500" /> Meilleurs performeurs
             </h2>
             <div className="space-y-2">
@@ -107,18 +107,18 @@ export default function Dashboard() {
                     onClick={() => navigate(`/markets/${s.id}`)}
                     className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gray-700 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-xs font-bold text-primary shrink-0">
                       {s.id.slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0 text-left">
-                      <div className="text-sm font-medium text-white">{s.id}</div>
-                      <div className="text-xs text-gray-400 truncate">{s.name}</div>
+                      <div className="text-sm font-medium text-primary">{s.id}</div>
+                      <div className="text-xs text-muted truncate">{s.name}</div>
                     </div>
                     <div className="w-16 shrink-0">
                       <MiniSparkline data={hist} positive height={28} />
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="text-sm font-semibold text-white">{formatPrice(s.quote!.price, s.currency)}</div>
+                      <div className="text-sm font-semibold text-primary">{formatPrice(s.quote!.price, s.currency)}</div>
                       <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${getChangeBg(s.quote!.changePercent)}`}>
                         {formatPercent(s.quote!.changePercent)}
                       </span>
@@ -130,7 +130,7 @@ export default function Dashboard() {
           </Card>
 
           <Card>
-            <h2 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-primary mb-4 flex items-center gap-2">
               <TrendingDown size={16} className="text-rose-500" /> Plus fortes baisses
             </h2>
             <div className="space-y-2">
@@ -142,18 +142,18 @@ export default function Dashboard() {
                     onClick={() => navigate(`/markets/${s.id}`)}
                     className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gray-700 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-xs font-bold text-primary shrink-0">
                       {s.id.slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0 text-left">
-                      <div className="text-sm font-medium text-white">{s.id}</div>
-                      <div className="text-xs text-gray-400 truncate">{s.name}</div>
+                      <div className="text-sm font-medium text-primary">{s.id}</div>
+                      <div className="text-xs text-muted truncate">{s.name}</div>
                     </div>
                     <div className="w-16 shrink-0">
                       <MiniSparkline data={hist} positive={false} height={28} />
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="text-sm font-semibold text-white">{formatPrice(s.quote!.price, s.currency)}</div>
+                      <div className="text-sm font-semibold text-primary">{formatPrice(s.quote!.price, s.currency)}</div>
                       <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${getChangeBg(s.quote!.changePercent)}`}>
                         {formatPercent(s.quote!.changePercent)}
                       </span>
@@ -169,23 +169,23 @@ export default function Dashboard() {
         <div className="space-y-4">
           {/* Portfolio Summary */}
           <Card>
-            <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-primary mb-3 flex items-center gap-2">
               <Briefcase size={16} className="text-emerald-500" /> Portefeuille
             </h2>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-400 text-sm">Valeur totale</span>
-                <span className="text-white font-semibold text-sm">{formatCurrency(metrics.totalValue)}</span>
+                <span className="text-muted text-sm">Valeur totale</span>
+                <span className="text-primary font-semibold text-sm">{formatCurrency(metrics.totalValue)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400 text-sm">P&L total</span>
+                <span className="text-muted text-sm">P&L total</span>
                 <span className={`font-semibold text-sm ${metrics.totalPnL >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                   {metrics.totalPnL >= 0 ? '+' : ''}{formatCurrency(metrics.totalPnL)} ({formatPercent(metrics.totalPnLPercent)})
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400 text-sm">Score diversification</span>
-                <span className="text-white font-semibold text-sm">{metrics.diversificationScore}/10</span>
+                <span className="text-muted text-sm">Score diversification</span>
+                <span className="text-primary font-semibold text-sm">{metrics.diversificationScore}/10</span>
               </div>
             </div>
             <button onClick={() => navigate('/portfolio')} className="mt-4 w-full text-sm text-emerald-400 hover:text-emerald-300 font-medium">
@@ -195,7 +195,7 @@ export default function Dashboard() {
 
           {/* Market Overview by Exchange */}
           <Card>
-            <h2 className="text-base font-semibold text-white mb-3">Marchés prioritaires</h2>
+            <h2 className="text-base font-semibold text-primary mb-3">Marchés prioritaires</h2>
             <div className="space-y-2">
               {featured.slice(0, 5).map((s) => {
                 const q = quotes[s.id];
@@ -207,13 +207,13 @@ export default function Dashboard() {
                   >
                     <div className="flex items-center gap-2 min-w-0">
                       <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${getExchangeBg(s.exchange)}`}>{s.exchange}</span>
-                      <span className="text-sm text-white font-medium">{s.id}</span>
+                      <span className="text-sm text-primary font-medium">{s.id}</span>
                     </div>
                     {q ? (
                       <span className={`text-xs font-medium ${getChangeBg(q.changePercent)} px-1.5 py-0.5 rounded-full`}>
                         {formatPercent(q.changePercent)}
                       </span>
-                    ) : <span className="text-xs text-gray-600">–</span>}
+                    ) : <span className="text-xs text-muted">–</span>}
                   </button>
                 );
               })}
@@ -223,14 +223,14 @@ export default function Dashboard() {
           {/* Recent Alerts */}
           {recentAlerts.length > 0 && (
             <Card>
-              <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+              <h2 className="text-base font-semibold text-primary mb-3 flex items-center gap-2">
                 <Bell size={16} className="text-rose-400" /> Alertes récentes
               </h2>
               <div className="space-y-2">
                 {recentAlerts.map((a) => (
                   <div key={a.id} className="flex items-start gap-2">
                     <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/20 shrink-0">{a.symbol}</Badge>
-                    <p className="text-xs text-gray-300 leading-relaxed">{a.message}</p>
+                    <p className="text-xs text-secondary leading-relaxed">{a.message}</p>
                   </div>
                 ))}
               </div>
