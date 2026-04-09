@@ -1,14 +1,14 @@
 // Real data service – fetches from Supabase when configured.
 // Returns null when Supabase is not available; callers fall back to simulation.
 
-import { isSupabaseEnabled, getSupabase } from './supabaseClient';
+import { isSupabaseEnabled, supabase } from './supabaseClient';
 import type { OHLCV, StockQuote, Announcement, SGIFund } from '../types/market';
 
 // ─── Market data ─────────────────────────────────────────────────────────────
 
 export async function fetchLatestQuotes(symbols: string[]): Promise<Record<string, StockQuote> | null> {
   if (!isSupabaseEnabled) return null;
-  const sb = getSupabase();
+  const sb = supabase;
   if (!sb) return null;
 
   try {
@@ -53,7 +53,7 @@ export async function fetchOHLCVHistory(
   to: string,
 ): Promise<OHLCV[] | null> {
   if (!isSupabaseEnabled) return null;
-  const sb = getSupabase();
+  const sb = supabase;
   if (!sb) return null;
 
   try {
@@ -129,7 +129,7 @@ const FALLBACK_ANNOUNCEMENTS: Announcement[] = [
 
 export async function fetchAnnouncements(): Promise<Announcement[]> {
   if (!isSupabaseEnabled) return FALLBACK_ANNOUNCEMENTS;
-  const sb = getSupabase();
+  const sb = supabase;
   if (!sb) return FALLBACK_ANNOUNCEMENTS;
 
   try {
@@ -173,7 +173,7 @@ const FALLBACK_SGI_FUNDS: SGIFund[] = [
 
 export async function fetchSGIFunds(): Promise<SGIFund[]> {
   if (!isSupabaseEnabled) return FALLBACK_SGI_FUNDS;
-  const sb = getSupabase();
+  const sb = supabase;
   if (!sb) return FALLBACK_SGI_FUNDS;
 
   try {

@@ -11,7 +11,3 @@ export const isSupabaseEnabled = !!(supabaseUrl && supabaseAnonKey);
 export const supabase = isSupabaseEnabled
   ? createClient(supabaseUrl!, supabaseAnonKey!)
   : null;
-
-export function getSupabase() {
-  return supabase;
-}
