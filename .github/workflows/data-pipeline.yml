@@ -1,0 +1,27 @@
+name: Market Data Pipeline
+
+on:
+  schedule:
+    # Run at 18:00 UTC Mon-Fri (after BRVM/BVMAC market close)
+    - cron: '0 18 * * 1-5'
+  workflow_dispatch: {}  # Allow manual trigger
+
+jobs:
+  fetch-market-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch and store market data
+        run: node scripts/fetchMarketData.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
